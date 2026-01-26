@@ -9,23 +9,55 @@
 <body>
   <main class="wrap">
     <h1><%= title %></h1>
+
+    <p class="status">
+      Emotion: <strong><%= state.emotion || '—' %></strong> |
+      Priority: <strong><%= state.priority || '—' %></strong> |
+      Food: <strong><%= state.food || '—' %></strong>
+    </p>
+
     <% if (step == 1) { %>
       <form action="/quiz" method="POST">
-        <h2>Question 1: What's your favorite color?</h2>
-        <input type="radio" name="q1" value="red" required /> Red<br />
-        <input type="radio" name="q1" value="blue" /> Blue<br />
-        <input type="radio" name="q1" value="green" /> Green<br />
+        <h2>Question 1: What's your emotion today?</h2>
+        <input type="radio" name="emotion" value="chaotic" required /> Chaotic<br />
+        <input type="radio" name="emotion" value="emotion" /> Emotionally Unavailable<br />
+        <input type="radio" name="emotion" value="content" /> Content<br />
+        <input type="radio" name="emotion" value="hungry" /> Hungry<br />
         <button type="submit">Next</button>
       </form>
-    <% } else if (step == 2) { %>
+    <% } %>
+    <% if (step == 2) { %>
       <form action="/quiz" method="POST"> 
-        <h2>Question 2: What's your favorite animal?</h2>
-        <input type="radio" name="q2" value="cat" required /> Cat<br />
-        <input type="radio" name="q2" value="dog" /> Dog<br />
-        <input type="radio" name="q2" value="bird" /> Bird<br />
-        <input type="hidden" name="q1" value="<%= state.q1 %>" />
+        <h2>Question 2: What is your priority?</h2>
+        <input type="radio" name="priority" value="family" required /> Family<br />
+        <input type="radio" name="priority" value="fame" /> Fame<br />
+        <input type="radio" name="priority" value="fortune" /> Fortune<br />
+        <input type="radio" name="priority" value="love" /> Love<br />
+        <input type="hidden" name="emotion" value="<%= state.emotion %>" />
         <button type="submit">Next</button>
       </form>
+    <% } %>
+    <% if (step == 3) { %>
+      <form action="/quiz" method="POST"> 
+        <h2>Question 3: What food encapsulates your aura?</h2>
+        <input type="radio" name="food" value="spaghetti" required /> Spaghetti<br />
+        <input type="radio" name="food" value="fillet" /> Fillet Mingnon<br />
+        <input type="radio" name="food" value="Pancakes" /> Pancakes<br />
+        <input type="radio" name="food" value="bread" /> Bread<br />
+        <input type="hidden" name="priority" value="<%= state.priority %>" />
+        <input type="hidden" name="emotion" value="<%= state.emotion %>" />
+        <button type="submit">Reveal Outcome</button>
+      </form>
+    <% } %>
+    <% if (step === 4) { %>
+      <h2>Outcome</h2>
+      <div class="card">
+        <h3><%= outcome.heading %></h3>
+        <p><%= outcome.text %></p>
+        <form action="/" method="get">
+          <button type="submit">Play Again</button>
+        </form>
+      </div>      
     <% } %>
   </main>
 </body>
